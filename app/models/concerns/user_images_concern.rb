@@ -7,27 +7,27 @@ module Concerns::UserImagesConcern
     # Modify provider specific image methods as needed after changing IMAGE_SIZES.
     unless defined? IMAGE_SIZES
       IMAGE_SIZES = {
-        tiny:   24,
-        thumb:  48,
-        large:  73
+          tiny:   24,
+          thumb:  30,
+          large:  73
       }.freeze
     end
   end
 
-  # ssl: true|false
+  # ssl=true|false
   # size: :tiny|:thumb|:large
   def image_url(*opts)
     sized_image_url(self[:image_url], *opts) || gravatar_url(*opts)
   end
 
-  def sized_image_url(url, size: :thumb, ssl: true)
+  def sized_image_url(url, size=30, ssl=true)
     return nil unless url.present?
     type = image_url_type(url)
     return url if type == :url
     self.send("sized_#{type}_image_url", url, size: size, ssl: ssl)
   end
 
-  def gravatar_url(ssl: true, size: :thumb)
+  def gravatar_url(ssl=true, size=30)
     return nil unless self.try(:email).present?
     url = ssl ? 'https://secure.' : 'http://'
     "#{url}gravatar.com/avatar/#{md5_email}?s=#{image_size(size)}"
@@ -54,25 +54,25 @@ module Concerns::UserImagesConcern
   def image_url_type(url)
     return nil unless url.present?
     case url
-    when /twitter_production|twimg\.com/
-      :twitter
-    when /graph\.facebook/
-      :facebook
-    when /licdn|linkedin/
-      :linkedin
-    else
-      :url
+      when /twitter_production|twimg\.com/
+        :twitter
+      when /graph\.facebook/
+        :facebook
+      when /licdn|linkedin/
+        :linkedin
+      else
+        :url
     end
   end
 
-  def sized_twitter_image_url(url, size: :thumb, ssl: true)
+  def sized_twitter_image_url(url, size=30, ssl=true)
     # https://dev.twitter.com/docs/user-profile-images-and-banners
     size = case size
-    when :tiny then '_mini'     # 24x24
-    when :thumb then '_normal'  # 48x48
-    when :large then '_bigger'  # 73x73
-    else ''
-    end
+             when :tiny then '_mini'     # 24x24
+             when :thumb then '_normal'  # 48x48
+             when :large then '_bigger'  # 73x73
+             else ''
+           end
     if ssl
       url = image_url_ssl(url)
       url.gsub!(/([^\/]+)\.twimg\.com/, 'pbs.twimg.com')
@@ -80,7 +80,7 @@ module Concerns::UserImagesConcern
     url.gsub(/(_(bigger|normal|mini))?\.(png|gif|jpeg|jpg)/, "#{size}.\\3")
   end
 
-  def sized_facebook_image_url(url, size: :thumb, ssl: true)
+  def sized_facebook_image_url(url, size=30, ssl=true)
     # https://developers.facebook.com/docs/reference/api/using-pictures/
     url = image_url_ssl(url) if ssl
 
@@ -95,13 +95,13 @@ module Concerns::UserImagesConcern
     # url.gsub(/picture(\?type=[^&]*)?/, "picture?type=#{size}")
 
     # Facebook supports on the fly image resizing
-    width = height = image_sizes[size] || 100
+    width = height = image_sizes[size] || 30
     url.gsub(/picture(\?type=[^&]*)?/, "picture?width=#{width}&height=#{height}")
   end
 
-  def sized_linkedin_image_url(url, size: :thumb, ssl: true)
+  def sized_linkedin_image_url(url, size=30, ssl=true)
     url = image_url_ssl(url.gsub(/[^\.\/]+\.(licdn|linkedin)\.com/, 'www.linkedin.com')) if ssl
-    width = height = image_sizes[size] || 100
+    width = height = image_sizes[size] || 30
     url.gsub(/\/shrink_\d+_\d+\//, "/shrink_#{width}_#{height}/")
   end
 end

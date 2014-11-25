@@ -15,7 +15,7 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module StarterKit
+module NotifySimply
   class Application < Rails::Application
     # Use sql instead of ruby to support case insensitive indices for postgres
     config.active_record.schema_format = :sql
@@ -25,7 +25,7 @@ module StarterKit
     # config.cache_store = :mem_cache_store, ENV['MEMCACHE_SERVERS].split(','),
     #   { namespace: Rails.application.config.settings.app_name, expires_in: 30.day, compress: true }
     # Set cache_store the same for all environments to avoid inconsistency issues
-    config.cache_store = :dalli_store
+    # config.cache_store = :dalli_store
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.1.3'
+ruby '1.9.3'
 
-gem 'rails', '~> 4.1.6'
+gem 'rails', '~> 4.1.0'
 
 #
 # PLATFORM SPECIFIC
@@ -16,16 +16,15 @@ gem 'terminal-notifier', group: [:development]
 
 
 # Monitoring
-gem 'rack-timeout', '~> 0.1.0beta4'
-gem 'newrelic_rpm'
-gem 'airbrake', '~> 3.2.1'         # use with airbrake.io or errbit
+gem 'rack-timeout', '~> 0.1.0beta3'
+# gem 'newrelic_rpm'
+# gem 'airbrake'                # use with airbrake.io or errbit
 # gem 'airbrake_user_attributes'  # use with self-hosted errbit; see config/initializers/airbrake.rb
 # gem 'rack-google-analytics'
 
 # Data
 gem 'pg'
-gem 'dalli'                     # memcached
-# gem 'schema_plus'             # add better index and foreign key support
+gem 'schema_plus'             # add better index and foreign key support
 # gem 'jbuilder'
 
 # Assets
@@ -54,25 +53,27 @@ gem 'bootstrap-sass'
 # gem 'country_select'
 
 # Email
-gem 'premailer-rails'
+# gem 'premailer-rails'
 
 # Authentication
 gem 'devise'
-gem 'cancancan', '~> 1.9'
+gem 'devise_invitable'
+gem 'cancan'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 # gem 'omniauth-persona'
-# gem 'omniauth-google-oauth2'
+gem 'omniauth-google'
+gem 'omniauth-google-oauth2'
 # gem 'omniauth-linkedin'
 
 # Admin
-gem 'rails_admin'
+# gem 'rails_admin'
 
 # Workers
-gem 'sidekiq'
+gem 'delayed_job_active_record'
 gem 'devise-async'
-gem 'sinatra', require: false
+# gem 'sinatra', require: false
 
 # Utils
 gem 'addressable'
@@ -106,7 +107,7 @@ group :development, :test do
   # gem 'pry'                   # better than irb
   # gem 'byebug'                # ruby 2.0 debugger with built-in pry
   gem 'pry-rails'               # adds rails specific commands to pry
-  gem 'pry-byebug'              # add debugging commands to pry
+  # gem 'pry-byebug'              # add debugging commands to pry
   gem 'pry-stack_explorer'      # navigate call stack
   # gem 'pry-rescue'            # start pry session on uncaught exception
   # gem 'pry-doc'               # browse docs from console
@@ -120,7 +121,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'ffaker'
-  gem 'capybara-webkit'
+  # gem 'capybara-webkit'
   # gem 'poltergeist'           # alternative to capybara-webkit
   # gem 'capybara-firebug'
   # gem 'launchy'               # save_and_open_page support for rspec
@@ -143,12 +144,16 @@ group :test do
   # gem 'coveralls', :require => false
 
   gem 'rspec-sidekiq'
-  gem 'rspec-activemodel-mocks'
 end
 
 group :production do
+  # gem 'dalli'                   # memcached
   gem 'memcachier'              # heroku add-on for auto config of dalli
   gem 'unicorn'
   gem 'rails_12factor'          # https://devcenter.heroku.com/articles/rails4
 end
-
+gem "font-awesome-rails"
+gem "paperclip", "~> 4.2"
+gem 'backbone-on-rails'
+gem 'will_paginate-bootstrap'
+gem "daemons"

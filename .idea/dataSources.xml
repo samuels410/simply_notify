@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="242411746">
+    <data-source source="LOCAL" name="Rails notify_simply: development" uuid="cbd93459-90f1-4c27-906b-8d359a6d40b4">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:&lt;%= Rails.application.config.settings.app_name %&gt;_development</jdbc-url>
+      <user-name>postgres</user-name>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails notify_simply: test" uuid="6594b514-3e4f-46a7-b5c2-ca9082e28557">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:&lt;%= Rails.application.config.settings.app_name %&gt;_test</jdbc-url>
+      <user-name>postgres</user-name>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails notify_simply: production" uuid="c6a1fac6-ec80-46e4-bede-8fba33d5015a">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:&lt;%= Rails.application.config.settings.app_name %&gt;_production</jdbc-url>
+      <user-name>postgres</user-name>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+

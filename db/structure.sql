@@ -3,7 +3,6 @@
 --
 
 SET statement_timeout = 0;
-SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -222,6 +221,20 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: fk__authentications_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__authentications_user_id ON authentications USING btree (user_id);
+
+
+--
+-- Name: fk__oauth_caches_authentication_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__oauth_caches_authentication_id ON oauth_caches USING btree (authentication_id);
+
+
+--
 -- Name: index_authentications_on_provider; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -268,6 +281,22 @@ CREATE UNIQUE INDEX index_users_on_unlock_token ON users USING btree (unlock_tok
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: fk_authentications_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY authentications
+    ADD CONSTRAINT fk_authentications_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_oauth_caches_authentication_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY oauth_caches
+    ADD CONSTRAINT fk_oauth_caches_authentication_id FOREIGN KEY (authentication_id) REFERENCES authentications(id);
 
 
 --

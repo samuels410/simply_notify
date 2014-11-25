@@ -21,6 +21,10 @@ GEM
       activemodel (= 4.1.6)
       activesupport (= 4.1.6)
       arel (~> 5.0.0)
+    activeresource (4.0.0)
+      activemodel (~> 4.0)
+      activesupport (~> 4.0)
+      rails-observers (~> 0.1.1)
     activesupport (4.1.6)
       i18n (~> 0.6, >= 0.6.9)
       json (~> 1.7, >= 1.7.7)
@@ -28,33 +32,30 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
-    airbrake (3.2.1)
-      builder
-      multi_json
     arel (5.0.1.20140414130214)
     awesome_print (1.2.0)
+    backbone-on-rails (1.1.2.0)
+      actionmailer
+      actionpack
+      activemodel
+      activeresource
+      eco
+      ejs
+      jquery-rails
+      railties
     bcrypt (3.1.7)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
     builder (3.2.2)
-    byebug (3.5.1)
-      columnize (~> 0.8)
-      debugger-linecache (~> 1.2)
-      slop (~> 3.6)
-    cancancan (1.9.2)
-    capybara (2.4.4)
-      mime-types (>= 1.16)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      xpath (~> 2.0)
-    capybara-webkit (1.3.0)
-      capybara (>= 2.0.2, < 2.5.0)
-      json
+    cancan (1.6.10)
     celluloid (0.15.2)
       timers (~> 1.1.0)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.4)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -63,14 +64,15 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
-    columnize (0.8.9)
     connection_pool (2.0.0)
-    css_parser (1.3.5)
-      addressable
-    dalli (2.7.2)
+    daemons (1.1.9)
     database_cleaner (1.3.0)
     debug_inspector (0.0.2)
-    debugger-linecache (1.2.0)
+    delayed_job (4.0.4)
+      activesupport (>= 3.0, < 4.2)
+    delayed_job_active_record (4.0.2)
+      activerecord (>= 3.0, < 4.2)
+      delayed_job (>= 3.0, < 4.1)
     devise (3.4.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -80,8 +82,17 @@ GEM
       warden (~> 1.2.3)
     devise-async (0.9.0)
       devise (~> 3.2)
+    devise_invitable (1.4.0)
+      actionmailer (>= 3.2.6, < 5)
+      devise (>= 3.2.0)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    eco (1.0.0)
+      coffee-script
+      eco-source
+      execjs
+    eco-source (1.1.0.rc.1)
+    ejs (1.1.1)
     erubis (2.7.0)
     execjs (2.2.2)
     factory_girl (4.5.0)
@@ -116,7 +127,6 @@ GEM
     headjs-rails (0.4.2)
       rails (>= 3.0.0)
     hike (1.2.3)
-    htmlentities (4.3.2)
     i18n (0.6.11)
     jquery-rails (3.1.2)
       railties (>= 3.0, < 5.0)
@@ -124,13 +134,8 @@ GEM
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
-    jquery-ui-rails (5.0.2)
-      railties (>= 3.2.16)
     json (1.8.1)
     jwt (1.0.0)
-    kaminari (0.16.1)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
     kgio (2.9.2)
     listen (2.7.11)
       celluloid (>= 0.15.2)
@@ -142,15 +147,10 @@ GEM
     memcachier (0.0.2)
     method_source (0.8.2)
     mime-types (2.4.2)
-    mini_portile (0.6.0)
     minitest (5.4.2)
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    nested_form (0.3.2)
-    newrelic_rpm (3.9.5.251)
-    nokogiri (1.6.3.1)
-      mini_portile (= 0.6.0)
     nprogress-rails (0.1.6.3)
     oauth (0.4.7)
     oauth2 (1.0.0)
@@ -164,6 +164,13 @@ GEM
       rack (~> 1.0)
     omniauth-facebook (2.0.0)
       omniauth-oauth2 (~> 1.2)
+    omniauth-google (1.0.2)
+      multi_json
+      omniauth (~> 1.0)
+      omniauth-oauth
+    omniauth-google-oauth2 (0.2.6)
+      omniauth (> 1.0)
+      omniauth-oauth2 (~> 1.1)
     omniauth-oauth (1.0.1)
       oauth
       omniauth (~> 1.0)
@@ -176,20 +183,16 @@ GEM
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
     orm_adapter (0.5.0)
+    paperclip (4.2.0)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.3)
+      mime-types
     pg (0.17.1)
-    premailer (1.8.2)
-      css_parser (>= 1.3.5)
-      htmlentities (>= 4.0.0)
-    premailer-rails (1.8.0)
-      actionmailer (>= 3, < 5)
-      premailer (~> 1.7, >= 1.7.9)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-byebug (2.0.0)
-      byebug (~> 3.4)
-      pry (~> 0.10)
     pry-rails (0.3.2)
       pry (>= 0.9.10)
     pry-stack_explorer (0.4.9.1)
@@ -198,11 +201,6 @@ GEM
     quiet_assets (1.0.3)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
-    rack-pjax (0.8.0)
-      nokogiri (~> 1.5)
-      rack (~> 1.1)
-    rack-protection (1.5.3)
-      rack
     rack-test (0.6.2)
       rack (>= 1.0)
     rack-timeout (0.1.0beta4)
@@ -216,23 +214,11 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.6)
       sprockets-rails (~> 2.0)
+    rails-observers (0.1.2)
+      activemodel (~> 4.0)
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
-    rails_admin (0.6.5)
-      builder (~> 3.1)
-      coffee-rails (~> 4.0)
-      font-awesome-rails (>= 3.0, < 5)
-      haml (~> 4.0)
-      jquery-rails (~> 3.0)
-      jquery-ui-rails (~> 5.0)
-      kaminari (~> 0.14)
-      nested_form (~> 0.3)
-      rack-pjax (~> 0.7)
-      rails (~> 4.0)
-      remotipart (~> 1.0)
-      safe_yaml (~> 1.0)
-      sass-rails (~> 4.0)
     rails_serve_static_assets (0.0.2)
     rails_stdout_logging (0.0.3)
     railties (4.1.6)
@@ -250,17 +236,12 @@ GEM
     redis (3.1.0)
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
-    remotipart (1.2.1)
     responders (1.1.1)
       railties (>= 3.2, < 4.2)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
       rspec-expectations (~> 3.1.0)
       rspec-mocks (~> 3.1.0)
-    rspec-activemodel-mocks (1.0.1)
-      activemodel (>= 3.0)
-      activesupport (>= 3.0)
-      rspec-mocks (>= 2.99, < 4.0)
     rspec-core (3.1.7)
       rspec-support (~> 3.1.0)
     rspec-expectations (3.1.2)
@@ -280,13 +261,15 @@ GEM
       rspec (~> 3.0, >= 3.0.0)
       sidekiq (>= 2.4.0)
     rspec-support (3.1.2)
-    safe_yaml (1.0.4)
     sass (3.2.19)
     sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.2.0)
       sprockets (~> 2.8, <= 2.11.0)
       sprockets-rails (~> 2.0)
+    schema_plus (1.7.0)
+      activerecord (>= 3.2)
+      valuable
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
@@ -307,10 +290,6 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
-    sinatra (1.4.5)
-      rack (~> 1.4)
-      rack-protection (~> 1.4)
-      tilt (~> 1.3, >= 1.3.4)
     slop (3.6.0)
     spring (1.1.3)
     spring-commands-rspec (1.0.2)
@@ -341,28 +320,32 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    valuable (0.9.8)
     warden (1.2.3)
       rack (>= 1.0)
-    xpath (2.0.0)
-      nokogiri (~> 1.3)
+    will_paginate (3.0.7)
+    will_paginate-bootstrap (1.0.1)
+      will_paginate (>= 3.0.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   addressable
-  airbrake (~> 3.2.1)
   awesome_print
+  backbone-on-rails
   bootstrap-sass
-  cancancan (~> 1.9)
-  capybara-webkit
+  cancan
   coffee-rails
-  dalli
+  daemons
   database_cleaner
+  delayed_job_active_record
   devise
   devise-async
+  devise_invitable
   factory_girl_rails
   ffaker
+  font-awesome-rails
   guard-rspec
   haml-rails
   headjs-rails
@@ -370,33 +353,30 @@ DEPENDENCIES
   jquery-turbolinks
   memcachier
   minitest
-  newrelic_rpm
   nprogress-rails
   omniauth
   omniauth-facebook
+  omniauth-google
+  omniauth-google-oauth2
   omniauth-twitter
+  paperclip (~> 4.2)
   pg
-  premailer-rails
-  pry-byebug
   pry-rails
   pry-stack_explorer
   quiet_assets
-  rack-timeout (~> 0.1.0beta4)
-  rails (~> 4.1.6)
+  rack-timeout (~> 0.1.0beta3)
+  rails (~> 4.1.0)
   rails_12factor
-  rails_admin
   rb-fsevent
-  rspec-activemodel-mocks
   rspec-rails
   rspec-sidekiq
   sass-rails
+  schema_plus
   sdoc
   settingslogic
   shoulda-matchers
-  sidekiq
   simple_form
   simplecov
-  sinatra
   spring
   spring-commands-rspec
   terminal-notifier
@@ -404,3 +384,4 @@ DEPENDENCIES
   turbolinks
   uglifier
   unicorn
+  will_paginate-bootstrap
